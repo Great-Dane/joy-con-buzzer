@@ -16,7 +16,6 @@ const rootStyle = document.documentElement.style;
 connectButton.addEventListener('click', connectJoyCon);
 
 const buzzInSound = new Audio('assets/buzz-in.mp3');
-let deviceInfo = {};
 
 const visualize = (joyCon, packet) => {
   if (!packet?.actualOrientation) {
@@ -60,7 +59,7 @@ const visualize = (joyCon, packet) => {
     const controller = joyCon instanceof JoyConLeft ? debugLeft : debugRight;
     controller.querySelector('pre').textContent =
       `
-      ${JSON.stringify(deviceInfo, null, 2)}
+      ${JSON.stringify(joyCon.device, null, 2)}
       ${JSON.stringify(buttons, null, 2)}
     `;
   }
@@ -75,7 +74,6 @@ setInterval(async () => {
     }
     joyCon.eventListenerAttached = true;
     await joyCon.enableVibration();
-    deviceInfo = await joyCon.getDeviceInfo();
     joyCon.on('hidinput', (event) => {
       visualize(joyCon, event.detail);
     });
