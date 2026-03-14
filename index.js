@@ -34,32 +34,33 @@ const visualize = (joyCon, packet) => {
 
   // test led and rumble
   if (buttons.a || buttons.up) {
-    joyCon.blinkLED(0);
+    // joyCon.blinkLED(0);
     buzzInSound.play();
   }
   if (buttons.b || buttons.down) {
-    joyCon.setLED(0);
+    // joyCon.setLED(0);
     buzzInSound.play();
   }
   if (buttons.x || buttons.right) {
-    joyCon.resetLED(0);
-    joyCon.rumble(600, 600, 0);
+    // joyCon.resetLED(0);
+    // joyCon.rumble(600, 600, 0);
     buzzInSound.play();
   }
   if (buttons.y || buttons.left) {
-    joyCon.rumble(600, 600, 0.5);
+    // joyCon.rumble(600, 600, 0.5);
     buzzInSound.play();
   }
   if (buttons.home || buttons.capture) {
     //joyCon.setHomeLED(true);
-    joyCon.setHomeLEDPattern(5, 1, 15, []);
+    // joyCon.setHomeLEDPattern(5, 1, 15, []);
     buzzInSound.play();
   }
   
   if (showDebug.checked) {
     const controller = joyCon instanceof JoyConLeft ? debugLeft : debugRight;
     controller.querySelector('pre').textContent =
-      `${JSON.stringify(joyCon, null, 2)}
+      `
+      // ${JSON.stringify(joyCon, null, 2)}
       ${JSON.stringify(buttons, null, 2)}
     `;
   }
