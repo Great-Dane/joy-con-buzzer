@@ -64,6 +64,7 @@ const visualize = (joyCon, packet) => {
       `${JSON.stringify(joyCon.values(), null, 2)}
     ${JSON.stringify(buttons, null, 2)}
     `;
+  }
 };
 
 // Joy-Cons may sleep until touched, so attach the listener dynamically.
