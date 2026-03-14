@@ -15,6 +15,8 @@ const rootStyle = document.documentElement.style;
 
 connectButton.addEventListener('click', connectJoyCon);
 
+const buzzIn = new Audio('buzz-in.mp3');
+
 const visualize = (joyCon, packet) => {
   if (!packet?.actualOrientation) {
     return;
@@ -95,7 +97,8 @@ const visualize = (joyCon, packet) => {
 
   // test led and rumble
   if (buttons.a || buttons.up) {
-    joyCon.blinkLED(0);
+    // joyCon.blinkLED(0);
+    buzzIn.play();
   }
   if (buttons.b || buttons.down) {
     joyCon.setLED(0);
@@ -138,8 +141,6 @@ const visualize = (joyCon, packet) => {
   }
 };
 
-const buzzIn = new Audio('buzz-in.mp3');
-
 const playBuzzSound = (joyCon, packet) => {
   if (!packet?.actualOrientation) {
     return;
@@ -167,8 +168,8 @@ setInterval(async () => {
     joyCon.eventListenerAttached = true;
     await joyCon.enableVibration();
     joyCon.on('hidinput', (event) => {
-      playBuzzSound(joyCon, event.detail);
-      // visualize(joyCon, event.detail);
+      // playBuzzSound(joyCon, event.detail);
+      visualize(joyCon, event.detail);
     });
 
     connectButtonRingCon.onclick = async () => await joyCon.enableRingCon();
