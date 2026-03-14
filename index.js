@@ -138,6 +138,26 @@ const visualize = (joyCon, packet) => {
   }
 };
 
+const buzzIn = new Audio('buzz-in.mp3');
+
+const playBuzzSound = () => {
+  if (!packet?.actualOrientation) {
+    return;
+  }
+  const {
+    actualAccelerometer: accelerometer,
+    buttonStatus: buttons,
+    actualGyroscope: gyroscope,
+    actualOrientation: orientation,
+    actualOrientationQuaternion: orientationQuaternion,
+    ringCon,
+  } = packet;
+
+  if (buttons.a || buttons.up || buttons.b || buttons.down || buttons.x || buttons.y || buttons.l || buttons.r || buttons.zl || buttons.zr || buttons.home || buttons.capture || buttons.plus || buttons.minus) {
+    buzzIn.play();
+  }
+};
+
 // Joy-Cons may sleep until touched, so attach the listener dynamically.
 setInterval(async () => {
   for (const joyCon of connectedJoyCons.values()) {
@@ -147,7 +167,8 @@ setInterval(async () => {
     joyCon.eventListenerAttached = true;
     await joyCon.enableVibration();
     joyCon.on('hidinput', (event) => {
-      visualize(joyCon, event.detail);
+      playBuzzSound();
+      // visualize(joyCon, event.detail);
     });
 
     connectButtonRingCon.onclick = async () => await joyCon.enableRingCon();
