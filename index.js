@@ -140,7 +140,7 @@ const visualize = (joyCon, packet) => {
 
 const buzzIn = new Audio('buzz-in.mp3');
 
-const playBuzzSound = () => {
+const playBuzzSound = (joyCon, packet) => {
   if (!packet?.actualOrientation) {
     return;
   }
@@ -167,7 +167,7 @@ setInterval(async () => {
     joyCon.eventListenerAttached = true;
     await joyCon.enableVibration();
     joyCon.on('hidinput', (event) => {
-      playBuzzSound();
+      playBuzzSound(joyCon, event.detail);
       // visualize(joyCon, event.detail);
     });
 
