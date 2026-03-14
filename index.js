@@ -75,8 +75,6 @@ setInterval(async () => {
     joyCon.eventListenerAttached = true;
     await joyCon.enableVibration();
     joyCon.on('hidinput', (event) => {
-      const controller = joyCon instanceof JoyConLeft ? debugLeft : debugRight;
-      controller.querySelector('post').textContent = `connectedJoyCons: ${JSON.stringify(connectedJoyCons.values(), null, 2)}`;
       visualize(joyCon, event.detail);
     });
 
