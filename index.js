@@ -30,14 +30,11 @@ const visualize = (joyCon, packet) => {
     ringCon,
   } = packet;
 
-  if (joyCon instanceof JoyConLeft) {
-    rootStyle.setProperty('--left-alpha', `${orientation.alpha}deg`);
-    rootStyle.setProperty('--left-beta', `${orientation.beta}deg`);
-    rootStyle.setProperty('--left-gamma', `${orientation.gamma}deg`);
-  } else if (joyCon instanceof JoyConRight) {
-    rootStyle.setProperty('--right-alpha', `${orientation.alpha}deg`);
-    rootStyle.setProperty('--right-beta', `${orientation.beta}deg`);
-    rootStyle.setProperty('--right-gamma', `${orientation.gamma}deg`);
+  for (const button in buttons) {
+    if (button) {
+      buzzInSound.play();
+      break;
+    }
   }
 
   if (joyCon instanceof JoyConLeft || joyCon instanceof GeneralController) {
