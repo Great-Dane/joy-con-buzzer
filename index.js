@@ -30,72 +30,16 @@ const visualize = (joyCon, packet) => {
     ringCon,
   } = packet;
 
-  for (const button in buttons) {
-    if (button) {
-      buzzInSound.play();
-      break;
-    }
-  }
 
-  if (joyCon instanceof JoyConLeft || joyCon instanceof GeneralController) {
-    const joystick = packet.analogStickLeft;
-    const joystickMultiplier = 10;
-    document.querySelector('#joystick-left').style.transform = `translateX(${
-      joystick.horizontal * joystickMultiplier
-    }px) translateY(${joystick.vertical * joystickMultiplier}px)`;
+  console.info(joyCon.values(), joyCon);
 
-    document.querySelector('#up').classList.toggle('highlight', buttons.up);
-    document.querySelector('#down').classList.toggle('highlight', buttons.down);
-    document.querySelector('#left').classList.toggle('highlight', buttons.left);
-    document
-      .querySelector('#right')
-      .classList.toggle('highlight', buttons.right);
-    document
-      .querySelector('#capture')
-      .classList.toggle('highlight', buttons.capture);
-    document
-      .querySelector('#l')
-      .classList.toggle('highlight', buttons.l || buttons.zl);
-    document
-      .querySelector('#l')
-      .classList.toggle('highlight', buttons.l || buttons.zl);
-    document
-      .querySelector('#minus')
-      .classList.toggle('highlight', buttons.minus);
-    document
-      .querySelector('#joystick-left')
-      .classList.toggle('highlight', buttons.leftStick);
-  }
-  if (joyCon instanceof JoyConRight || joyCon instanceof GeneralController) {
-    const joystick = packet.analogStickRight;
-    const joystickMultiplier = 10;
-    document.querySelector('#joystick-right').style.transform = `translateX(${
-      joystick.horizontal * joystickMultiplier
-    }px) translateY(${joystick.vertical * joystickMultiplier}px)`;
-
-    document.querySelector('#a').classList.toggle('highlight', buttons.a);
-    document.querySelector('#b').classList.toggle('highlight', buttons.b);
-    document.querySelector('#x').classList.toggle('highlight', buttons.x);
-    document.querySelector('#y').classList.toggle('highlight', buttons.y);
-    document.querySelector('#home').classList.toggle('highlight', buttons.home);
-    document
-      .querySelector('#r')
-      .classList.toggle('highlight', buttons.r || buttons.zr);
-    document
-      .querySelector('#r')
-      .classList.toggle('highlight', buttons.r || buttons.zr);
-    document.querySelector('#plus').classList.toggle('highlight', buttons.plus);
-    document
-      .querySelector('#joystick-right')
-      .classList.toggle('highlight', buttons.rightStick);
-
-    document.querySelector('#rc-st').value = ringCon.strain;
+  if (buttons.a || buttons.b || buttons.x || buttons.y || buttons.up || buttons.down || buttons.left || buttons.right || buttons.l || buttons.r || buttons.zl || buttons.zr) {
+    buzzInSound.play();
   }
 
   // test led and rumble
   if (buttons.a || buttons.up) {
     joyCon.blinkLED(0);
-    buzzInSound.play();
   }
   if (buttons.b || buttons.down) {
     joyCon.setLED(0);
