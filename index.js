@@ -31,7 +31,7 @@ const visualize = (joyCon, packet) => {
   } = packet;
 
 
-  console.log(joyCon.values(), joyCon);
+  console.info(joyCon.values(), joyCon);
 
 
   // test led and rumble
@@ -58,7 +58,12 @@ const visualize = (joyCon, packet) => {
     buzzInSound.play();
   }
 
-
+  if (showDebug.checked) {
+    const controller = joyCon instanceof JoyConLeft ? debugLeft : debugRight;
+    controller.querySelector('pre').textContent =
+      `${JSON.stringify(joyCon.values(), null, 2)}
+    ${JSON.stringify(buttons, null, 2)}
+    `;
 };
 
 // Joy-Cons may sleep until touched, so attach the listener dynamically.
