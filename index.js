@@ -59,26 +59,11 @@ const visualize = (joyCon, packet) => {
   if (showDebug.checked) {
     const controller = joyCon instanceof JoyConLeft ? debugLeft : debugRight;
     controller.querySelector('pre').textContent =
-      `${JSON.stringify(orientation, null, 2)}
-    ${JSON.stringify(orientationQuaternion, null, 2)}
-    ${JSON.stringify(gyroscope, null, 2)}
-    ${JSON.stringify(accelerometer, null, 2)}
+      `${JSON.stringify(joyCon.values(), null, 2)}
+      ${JSON.stringify(orientationQuaternion, null, 2)}
+      ${JSON.stringify(gyroscope, null, 2)}
+      ${JSON.stringify(accelerometer, null, 2)}
     `;
-    const meterMultiplier = 300;
-    controller.querySelector('#acc-x').value =
-      accelerometer.x * meterMultiplier;
-    controller.querySelector('#acc-y').value =
-      accelerometer.y * meterMultiplier;
-    controller.querySelector('#acc-z').value =
-      accelerometer.z * meterMultiplier;
-
-    const gyroscopeMultiplier = 300;
-    controller.querySelector('#gyr-x').value =
-      gyroscope.rps.x * gyroscopeMultiplier;
-    controller.querySelector('#gyr-y').value =
-      gyroscope.rps.y * gyroscopeMultiplier;
-    controller.querySelector('#gyr-z').value =
-      gyroscope.rps.z * gyroscopeMultiplier;
   }
 
 };
