@@ -59,7 +59,6 @@ const visualize = (joyCon, packet) => {
     const controller = joyCon instanceof JoyConLeft ? debugLeft : debugRight;
     controller.querySelector('pre').textContent =
       `
-      ${JSON.stringify(joyCon.device, null, 2)}
       ${JSON.stringify(buttons, null, 2)}
     `;
   }
@@ -75,6 +74,8 @@ setInterval(async () => {
     joyCon.eventListenerAttached = true;
     await joyCon.enableVibration();
     joyCon.on('hidinput', (event) => {
+      const controller = joyCon instanceof JoyConLeft ? debugLeft : debugRight;
+      controller.querySelector('post').textContent = `Input report from ${joyCon.device.productName}`;
       visualize(joyCon, event.detail);
     });
 
