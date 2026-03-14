@@ -31,7 +31,6 @@ const visualize = (joyCon, packet) => {
   } = packet;
 
 
-
   // test led and rumble
   if (buttons.a || buttons.up) {
     // joyCon.blinkLED(0);
@@ -60,7 +59,7 @@ const visualize = (joyCon, packet) => {
     const controller = joyCon instanceof JoyConLeft ? debugLeft : debugRight;
     controller.querySelector('pre').textContent =
       `
-      ${JSON.stringify(connectedJoyCons.values(), null, 2)}
+      ${JSON.stringify(joyCon.getDeviceInfo(), null, 2)}
       ${JSON.stringify(buttons, null, 2)}
     `;
   }
