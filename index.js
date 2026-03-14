@@ -60,7 +60,7 @@ const visualize = (joyCon, packet) => {
     const controller = joyCon instanceof JoyConLeft ? debugLeft : debugRight;
     controller.querySelector('pre').textContent =
       `
-      // ${JSON.stringify(joyCon, null, 2)}
+      ${JSON.stringify(connectedJoyCons.values(), null, 2)}
       ${JSON.stringify(buttons, null, 2)}
     `;
   }
