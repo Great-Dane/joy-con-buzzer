@@ -7,7 +7,6 @@ import {
 } from './joy-con-webhid.es.js';
 
 const connectButton = document.querySelector('#connect-joy-cons');
-const connectButtonRingCon = document.querySelector('#connect-ring-con');
 const debugLeft = document.querySelector('#debug-left');
 const debugRight = document.querySelector('#debug-right');
 const showDebug = document.querySelector('#show-debug');
@@ -172,7 +171,6 @@ setInterval(async () => {
       visualize(joyCon, event.detail);
     });
 
-    connectButtonRingCon.onclick = async () => await joyCon.enableRingCon();
   }
 }, 2000);
 
