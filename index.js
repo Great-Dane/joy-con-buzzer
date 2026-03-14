@@ -7,6 +7,7 @@ import {
 } from './joy-con-webhid.es.js';
 
 const connectButton = document.querySelector('#connect-joy-cons');
+const connectButtonRingCon = document.querySelector('#connect-ring-con');
 const debugLeft = document.querySelector('#debug-left');
 const debugRight = document.querySelector('#debug-right');
 const showDebug = document.querySelector('#show-debug');
@@ -14,7 +15,7 @@ const rootStyle = document.documentElement.style;
 
 connectButton.addEventListener('click', connectJoyCon);
 
-const buzzIn = new Audio('buzz-in.mp3');
+const buzzInSound = new Audio('assets/buzz-in.mp3');
 
 const visualize = (joyCon, packet) => {
   if (!packet?.actualOrientation) {
@@ -96,8 +97,8 @@ const visualize = (joyCon, packet) => {
 
   // test led and rumble
   if (buttons.a || buttons.up) {
-    // joyCon.blinkLED(0);
-    buzzIn.play();
+    joyCon.blinkLED(0);
+    buzzInSound.play();
   }
   if (buttons.b || buttons.down) {
     joyCon.setLED(0);
@@ -140,24 +141,6 @@ const visualize = (joyCon, packet) => {
   }
 };
 
-const playBuzzSound = (joyCon, packet) => {
-  if (!packet?.actualOrientation) {
-    return;
-  }
-  const {
-    actualAccelerometer: accelerometer,
-    buttonStatus: buttons,
-    actualGyroscope: gyroscope,
-    actualOrientation: orientation,
-    actualOrientationQuaternion: orientationQuaternion,
-    ringCon,
-  } = packet;
-
-  if (buttons.a || buttons.up || buttons.b || buttons.down || buttons.x || buttons.y || buttons.l || buttons.r || buttons.zl || buttons.zr || buttons.home || buttons.capture || buttons.plus || buttons.minus) {
-    buzzIn.play();
-  }
-};
-
 // Joy-Cons may sleep until touched, so attach the listener dynamically.
 setInterval(async () => {
   for (const joyCon of connectedJoyCons.values()) {
@@ -167,7 +150,6 @@ setInterval(async () => {
     joyCon.eventListenerAttached = true;
     await joyCon.enableVibration();
     joyCon.on('hidinput', (event) => {
-      // playBuzzSound(joyCon, event.detail);
       visualize(joyCon, event.detail);
     });
 
