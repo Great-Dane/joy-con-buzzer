@@ -44,24 +44,29 @@ const visualize = (joyCon, packet) => {
   if (buttons.a || buttons.up) {
     // joyCon.blinkLED(0);
     buzzInSound.play();
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
   }
   if (buttons.b || buttons.down) {
     // joyCon.setLED(0);
     buzzInSound.play();
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
   }
   if (buttons.x || buttons.right) {
     // joyCon.resetLED(0);
     // joyCon.rumble(600, 600, 0);
     buzzInSound.play();
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
   }
   if (buttons.y || buttons.left) {
     // joyCon.rumble(600, 600, 0.5);
     buzzInSound.play();
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
   }
   if (buttons.home || buttons.capture) {
     //joyCon.setHomeLED(true);
     // joyCon.setHomeLEDPattern(5, 1, 15, []);
     buzzInSound.play();
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
   }
   
   if (showDebug.checked) {
@@ -71,7 +76,6 @@ const visualize = (joyCon, packet) => {
       ${JSON.stringify(joyCon.device.productId, null, 2)}
       ${JSON.stringify(buttons, null, 2)}
     `;
-    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
     
   }
 
