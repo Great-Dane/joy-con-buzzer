@@ -35,6 +35,8 @@ async function handleBuzz(joycon) {
       isActiveBuzz = true;
       buzzInSound.play();
       debugGeneral.querySelector('pre').textContent = `${controllerMap[joycon.device.productId] || 'Unknown Controller: ${joycon.device.productId}'} has buzzed in!`;
+      debugGeneral.querySelector('pre').textContent += `\nBuzzers are now locked for 5 seconds.`;
+      debugGeneral.querySelector('pre').textContent += JSON.stringify(joycon.device, null, 2);
       await delay(5000);
   }
   isActiveBuzz = false;
