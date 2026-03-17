@@ -28,19 +28,19 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function handleBuzz(joycon) {
+async function handleBuzz(joyCon) {
   if (isActiveBuzz) {
       return;
   } else {
       isActiveBuzz = true;
       buzzInSound.play();
-      debugGeneral.querySelector('pre').textContent = `${controllerMap[joycon.device.productId] || 'Unknown Controller: ${joycon.device.productId}'} has buzzed in!`;
+      debugGeneral.querySelector('pre').textContent = `${controllerMap[joyCon.device.productId] || 'Unknown Controller: ${joyCon.device.productId}'} has buzzed in!`;
       debugGeneral.querySelector('pre').textContent += `\nBuzzers are now locked for 5 seconds.`;
-      debugGeneral.querySelector('pre').textContent += JSON.stringify(joycon.device, null, 2);
+      debugGeneral.querySelector('pre').textContent += JSON.stringify(joyCon.device, null, 2);
       await delay(5000);
   }
   isActiveBuzz = false;
-  joycon.rumble(600, 600, 0.5); // Let players know their buzzers are active again with a rumble
+  joyCon.rumble(600, 600, 0.5); // Let players know their buzzers are active again with a rumble
 }
 
 const handleInput = (joyCon, packet) => {
@@ -62,7 +62,7 @@ const handleInput = (joyCon, packet) => {
   // test led and rumble
   if (buttons.a || buttons.up) {
     // joyCon.blinkLED(0);
-    handleBuzz(productId);
+    handleBuzz(joyCon);
   }
   if (buttons.b || buttons.down) {
     // joyCon.setLED(0);
