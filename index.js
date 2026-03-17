@@ -28,17 +28,17 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function handleBuzz(productId) {
+async function handleBuzz(joycon) {
   if (isActiveBuzz) {
       return;
   } else {
       isActiveBuzz = true;
       buzzInSound.play();
-      debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller: ${productId}'} has buzzed in!`;
+      debugGeneral.querySelector('pre').textContent = `${controllerMap[joycon.device.productId] || 'Unknown Controller: ${joycon.device.productId}'} has buzzed in!`;
       await delay(5000);
   }
   isActiveBuzz = false;
-  joyCon.rumble(600, 600, 0.5); // Let players know their buzzers are active again with a rumble
+  joycon.rumble(600, 600, 0.5); // Let players know their buzzers are active again with a rumble
 }
 
 const handleInput = (joyCon, packet) => {
