@@ -34,8 +34,8 @@ async function handleBuzz(joyCon) {
   } else {
       isActiveBuzz = true;
       buzzInSound.play();
-      debugGeneral.querySelector('pre').textContent = `${controllerMap[joyCon.device.productId] || 'Unknown Controller: ${joyCon.device.productId}'} has buzzed in!`;
-      debugGeneral.querySelector('pre').textContent += `\nBuzzers are now locked for 5 seconds.`;
+      // debugGeneral.querySelector('pre').textContent = `${controllerMap[joyCon.device.productId] || 'Unknown Controller: ${joyCon.device.productId}'} has buzzed in!`;
+      // debugGeneral.querySelector('pre').textContent += `\nBuzzers are now locked for 5 seconds.`;
       debugGeneral.querySelector('pre').textContent += JSON.stringify(joyCon.device, null, 2);
       await delay(5000);
   }
