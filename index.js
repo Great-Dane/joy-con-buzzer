@@ -1,3 +1,5 @@
+const buzzBuzzers = require("assets/node-buzzers/index"); // => require('buzz-buzzers');
+
 import {
   connectJoyCon,
   connectedJoyCons,
@@ -18,6 +20,29 @@ const controllerMap = {
   8198: 'Mikaela',
   8199: 'Dane',
 };
+
+const buzzers = buzzBuzzers();
+
+function blinkBuzzerLeds() {
+  setInterval(function () {
+    buzzers.setLeds(true, true, true, true);
+    setTimeout(function () {
+      buzzers.setLeds(false, false, false, false);
+    }, 500);
+  }, 5000);
+}
+
+blinkBuzzerLeds();
+
+buzzers.onError(function (err) {
+  debugGeneral.querySelector('pre').textContent = 'Error! ' + JSON.stringify(err);
+});
+
+buzzers.onPress(function (ev) {
+  debugGeneral.querySelector('pre').textContent = 
+    `PRESSED: { "Controller": ${ev.controller}, "Button": ${ev.button} }`
+  ;
+});
 
 connectButton.addEventListener('click', connectJoyCon);
 
