@@ -34,9 +34,9 @@ async function handleBuzz(joyCon) {
   } else {
       isActiveBuzz = true;
       buzzInSound.play();
-      // debugGeneral.querySelector('pre').textContent = `${controllerMap[joyCon.device.productId] || 'Unknown Controller: ${joyCon.device.productId}'} has buzzed in!`;
-      // debugGeneral.querySelector('pre').textContent += `\nBuzzers are now locked for 5 seconds.`;
-      debugGeneral.querySelector('pre').textContent += JSON.stringify(joyCon.device, null, 2);
+      debugGeneral.querySelector('pre').textContent = `${controllerMap[joyCon.device.productId] || 'Unknown Controller: ${joyCon.device.productId}'} has buzzed in!`;
+      debugGeneral.querySelector('pre').textContent += `\nBuzzers are now locked for 5 seconds.`;
+      
       await delay(5000);
   }
   isActiveBuzz = false;
@@ -100,6 +100,7 @@ const handleInput = (joyCon, packet) => {
     controller.querySelector('pre').textContent =
       `
       ${JSON.stringify(joyCon.device.productId, null, 2)}
+      ${JSON.stringify(joyCon.device, null, 2)}
       ${JSON.stringify(buttons, null, 2)}
     `;
     
