@@ -113,6 +113,7 @@ setInterval(async () => {
     }
     joyCon.eventListenerAttached = true;
     await joyCon.enableVibration();
+    joyCon.setLED(0);
     joyCon.on('hidinput', (event) => {
       handleInput(joyCon, event.detail);
     });
