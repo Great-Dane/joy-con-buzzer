@@ -22,9 +22,26 @@ const controllerMap = {
 connectButton.addEventListener('click', connectJoyCon);
 
 const buzzInSound = new Audio('assets/buzz-in.mp3');
-let isPlayerBuzzed = false;
+let isActiveBuzz = false; // True if a controller has buzzed in and the 5-second timer is active
 
-const visualize = (joyCon, packet) => {
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function handleBuzz(productId) {
+  if (isActiveBuzz) {
+      return;
+  } else {
+      isActiveBuzz = true;
+      buzzInSound.play();
+      debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller: ${productId}'} has buzzed in!`;
+      await delay(5000);
+  }
+  isActiveBuzz = false;
+  joyCon.rumble(600, 600, 0.5); // Let players know their buzzers are active again with a rumble
+}
+
+const handleInput = (joyCon, packet) => {
   if (!packet?.actualOrientation) {
     return;
   }
@@ -43,38 +60,37 @@ const visualize = (joyCon, packet) => {
   // test led and rumble
   if (buttons.a || buttons.up) {
     // joyCon.blinkLED(0);
-    buzzInSound.play();
-    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
+    handleBuzz(productId);
   }
   if (buttons.b || buttons.down) {
     // joyCon.setLED(0);
     buzzInSound.play();
-    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller: ${productId}'} has buzzed in!`;
   }
   if (buttons.x || buttons.right) {
     // joyCon.resetLED(0);
     // joyCon.rumble(600, 600, 0);
     buzzInSound.play();
-    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller: ${productId}'} has buzzed in!`;
   }
   if (buttons.y || buttons.left) {
     // joyCon.rumble(600, 600, 0.5);
     buzzInSound.play();
-    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller: ${productId}'} has buzzed in!`;
   }
   if (buttons.home || buttons.capture) {
     //joyCon.setHomeLED(true);
     // joyCon.setHomeLEDPattern(5, 1, 15, []);
     buzzInSound.play();
-    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller: ${productId}'} has buzzed in!`;
   }
   if (buttons.l || buttons.r) {
     buzzInSound.play();
-    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller: ${productId}'} has buzzed in!`;
   }
   if (buttons.zl || buttons.zr) {
     buzzInSound.play();
-    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller: ${productId}'} has buzzed in!`;
   }
   
   if (showDebug.checked) {
@@ -98,7 +114,7 @@ setInterval(async () => {
     joyCon.eventListenerAttached = true;
     await joyCon.enableVibration();
     joyCon.on('hidinput', (event) => {
-      visualize(joyCon, event.detail);
+      handleInput(joyCon, event.detail);
     });
 
   }
