@@ -68,6 +68,14 @@ const visualize = (joyCon, packet) => {
     buzzInSound.play();
     debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
   }
+  if (buttons.l || buttons.r) {
+    buzzInSound.play();
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
+  }
+  if (buttons.zl || buttons.zr) {
+    buzzInSound.play();
+    debugGeneral.querySelector('pre').textContent = `${controllerMap[productId] || 'Unknown Controller'} has buzzed in!`;
+  }
   
   if (showDebug.checked) {
     const controller = joyCon instanceof JoyConLeft ? debugLeft : debugRight;
